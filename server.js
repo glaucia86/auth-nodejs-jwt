@@ -40,11 +40,65 @@ app.get('/', function(req, res) {
 var apiRoutes = express.Router();
 
 //TODO: Criar a rota: /authenticate: http://localhost:8000/authenticate
+apiRoutes.post('/authenticate', function(req, res) {
+    
+    //Aqui estaremos buscando o usuário
+    Usuario.findOne({
+    nome: req.body.nome
+  }, function(err, usuario) {
 
+    if (err) throw err;
+
+    if (!usuario) {
+      res.json({ success: false, message: 'Autenticação do Usuário falhou. Usuário não encontrado!' });
+    } else if (usuario) {
+
+      //Aqui iremos verificar se a senha bate com o que está cadastrado no banco:
+      if (usuario.senha != req.body.senha) {
+        res.json({ success: false, message: 'Autenticação do Usuário falhou. Senha incorreta!' });
+      } else {
+
+        // caso a senha do usuário seja encontrada.... iremos criar um token:
+        var token = jwt.sign(usuario, app.get('superNode-auth'), {
+          expiresInMinutes: 1440 //o token irá expirar em 24 horas
+        });
+
+        //Aqui iremos retornar a informação do token via JSON:
+        res.json({
+          success: true,
+          message: 'Token Criado!',
+          token: token
+        });
+      }   
+    }
+  });
+});
 
 
 //TODO: Criar a rota middleware para poder verificar e autenticar o token
+apiRoutes.use(function(req, res, next) {
 
+    var token = req.body.token || req.query.token || req.headers['x-access-token'];
+
+    if(token) {
+        jwt.verify(token, app.get('superNode-auth'), function(err, decoded) {      
+            if (err) {
+                return res.json({ success: false, message: 'Falha ao tentar autenticar o token!' });    
+            } else {
+            //se tudo correr bem, salver a requisição para o uso em outras rotas
+            req.decoded = decoded;    
+            next();
+            }
+        });
+
+        } else {
+        // se não tiver o token, retornar o erro 403
+        return res.status(403).send({ 
+            success: false, 
+            message: 'Não há token.' 
+        });       
+    }
+});
 
 
 //Rota para mostrar a mensagem aleatória em: GET http://localhost:8000/api
