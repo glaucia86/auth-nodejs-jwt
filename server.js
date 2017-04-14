@@ -37,7 +37,25 @@ app.get('/', function(req, res) {
 });
 
 //Demais rotas:
-//--------- Desenvolver ainda....
+app.get('/create', function(req, res){
+    //Aqui iremos criar um usuário de exemplo - todas as vezes que formos usar essa rota aparecerá esse usuário
+    var usuarioExemplo = new Usuario({
+        nome: 'Glaucia Lemos',
+        senha: 'senha123',
+        admin: true
+    });
+
+    //Aqui estaremos salvando esse usuário de exemplo:
+    usuarioExemplo.save(function(error) {
+        if(error)
+            throw error;
+
+        console.log('Usuário Criado com Sucesso!');
+            res.json({
+               success: true 
+            });
+    });
+});
 
 //Iniciamos o server via node server.js
 app.listen(port);
