@@ -11,5 +11,8 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/glaucia86/auth-nodejs-jwt"
+  },
+  "devDependencies": {
+    "nodemon": "^1.11.0"
   }
 }

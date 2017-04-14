@@ -10,5 +10,5 @@ Author: Glaucia Lemos
 module.exports = {
     'configName': 'node-auth',
     'database' : 'mongodb://glemos:glau123@ds060649.mlab.com:60649/node-auth' // via mLab
-    //'database': 'mongodb://localhost/node-auth' // localmente
+    //'database': 'mongodb://localhost/node-auth' // localmente via MongoDb
 }
