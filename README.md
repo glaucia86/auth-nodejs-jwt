@@ -1,6 +1,6 @@
 # Tutorial: Autenticando APIs Node.Js com JWT by Code4Coders
 
-Desenvolvimento de uma aplicação em Node.Js para ensinar os conceitos principais para implementar autenticação de tokens protegidos com JWT (Json Web Token). O tutorial segue no seu site: [Code4Coders] (www.code4coders.wordpress.com)
+Desenvolvimento de uma aplicação em Node.Js para ensinar os conceitos principais para implementar autenticação de tokens protegidos com JWT (Json Web Token). O tutorial segue no seu site: [Code4Coders](www.code4coders.wordpress.com)
 
 ## Recursos utilizados no desenvolvimento:
 
