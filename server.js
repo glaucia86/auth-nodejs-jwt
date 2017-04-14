@@ -36,6 +36,32 @@ app.get('/', function(req, res) {
     res.send('Seja Bem-Vindo a API: http://localhost:' + port + '/api');
 });
 
+//Aqui estamos obtendo a instância do router para as rotas das APIs:
+var apiRoutes = express.Router();
+
+//TODO: Criar a rota: /authenticate: http://localhost:8000/authenticate
+
+
+
+//TODO: Criar a rota middleware para poder verificar e autenticar o token
+
+
+
+//Rota para mostrar a mensagem aleatória em: GET http://localhost:8000/api
+apiRoutes.get('/', function(req, res) {
+    res.json({ message: 'Bem-Vindo a Nossa Linda API!!! '});
+});
+
+//Rota para retornar todos os usuários: GET: http://localhost:8000/usuarios
+apiRoutes.get('/usuarios', function(req, res){
+    Usuario.find({}, function(error, usuarios){
+        res.json(usuarios);
+    });
+});
+
+//E aqui iremos aplicar as rotas para a nossa aplicação com o prefixo: /api:
+app.use('/api', apiRoutes);
+
 //Demais rotas:
 app.get('/create', function(req, res){
     //Aqui iremos criar um usuário de exemplo - todas as vezes que formos usar essa rota aparecerá esse usuário
